@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WriteFlow AI — Write 10x Faster with AI</title>
+  <meta name="description" content="WriteFlow AI generates blog posts, emails, ad copy, and more in seconds. Trusted by 50,000+ marketers, founders, and creators." />
+  <meta property="og:title" content="WriteFlow AI — Write 10x Faster with AI" />
+  <meta property="og:description" content="Generate high-converting copy in seconds. Blog posts, emails, ads, product descriptions, and more." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<!-- ========== ANNOUNCEMENT BAR ========== -->
+<div class="announcement-bar">
+  🔥 Black Friday Deal: 60% OFF all plans — ends in <strong id="countdown">23:59:59</strong> &nbsp;
+  <a href="#pricing">Grab the deal →</a>
+</div>
+
+<!-- ========== NAVBAR ========== -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">Write<span>Flow</span> <span style="background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AI</span></a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How it Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" class="btn-nav-ghost">Sign In</a>
+      <a href="#pricing" class="btn-nav-primary" onclick="openModal('pro')">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge fade-in">
+        <span class="badge"><span class="dot"></span> Now with GPT-4o + Claude 3.5</span>
+      </div>
+      <h1 class="hero-title fade-in-delay-1">
+        Write <span class="highlight">10x Faster</span><br/>with AI That Actually Converts
+      </h1>
+      <p class="hero-subtitle fade-in-delay-2">
+        WriteFlow AI generates blog posts, sales emails, ad copy, product descriptions, and LinkedIn content in seconds — not hours. Stop staring at blank pages forever.
+      </p>
+      <div class="hero-cta fade-in-delay-3">
+        <a href="#pricing" class="btn-primary" onclick="openModal('pro')">
+          ✨ Start Writing Free
+        </a>
+        <a href="#demo" class="btn-secondary">
+          ▶ Watch 2-min Demo
+        </a>
+      </div>
+      <div class="hero-social-proof fade-in-delay-3">
+        <div class="avatar-stack">
+          <div class="avatar" style="background:linear-gradient(135deg,#6C47FF,#FF6B35)">JM</div>
+          <div class="avatar" style="background:linear-gradient(135deg,#00D4AA,#6C47FF)">SR</div>
+          <div class="avatar" style="background:linear-gradient(135deg,#FF6B35,#FFB800)">KP</div>
+          <div class="avatar" style="background:linear-gradient(135deg,#6C47FF,#00D4AA)">AL</div>
+          <div class="avatar" style="background:linear-gradient(135deg,#FFB800,#FF6B35)">+</div>
+        </div>
+        <span class="social-text">
+          <span class="stars">★★★★★</span><br/>
+          <strong>50,000+</strong> writers already use WriteFlow
+        </span>
+      </div>
+
+      <!-- LIVE DEMO WINDOW -->
+      <div class="demo-window fade-in-delay-3" id="demo">
+        <div class="demo-titlebar">
+          <div class="demo-dot red"></div>
+          <div class="demo-dot yellow"></div>
+          <div class="demo-dot green"></div>
+          <div class="demo-url">app.writeflow.ai/editor</div>
+        </div>
+        <div class="demo-body">
+          <div class="demo-input-area">
+            <div class="demo-label">📝 Your Topic / Brief</div>
+            <textarea class="demo-textarea" id="demoInput" placeholder="e.g. Write a blog intro about the benefits of remote work for startups...">Write a compelling product description for a minimalist leather wallet targeting professionals aged 25–40 who value quality and simplicity.</textarea>
+            <div>
+              <div class="demo-label" style="margin-bottom:8px">✨ Content Type</div>
+              <div class="demo-controls">
+                <span class="demo-chip active" onclick="setChip(this,'Blog Post')">Blog Post</span>
+                <span class="demo-chip" onclick="setChip(this,'Email')">Email</span>
+                <span class="demo-chip" onclick="setChip(this,'Ad Copy')">Ad Copy</span>
+                <span class="demo-chip" onclick="setChip(this,'LinkedIn')">LinkedIn</span>
+                <span class="demo-chip" onclick="setChip(this,'Product Desc')">Product Desc</span>
+              </div>
+            </div>
+            <button class="demo-generate" onclick="runDemo()">⚡ Generate Now</button>
+          </div>
+          <div class="demo-output-area">
+            <div class="demo-label">🤖 AI Output</div>
+            <div class="demo-output" id="demoOutput">The Wallet That Says Everything Without Saying a Word.
+
+Crafted from full-grain leather that ages beautifully with you, this slim wallet carries only what matters — your cards, your cash, your identity. No bulk. No clutter. Just clean, intentional design built for the professional who knows that less is always more.
+
+✓ Fits 6 cards + cash — no bulk
+✓ RFID-blocking technology built in  
+✓ Ships in premium gift packaging
+✓ 2-year craftsmanship guarantee</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LOGOS ========== -->
+<section id="logos">
+  <div class="container">
+    <p class="logos-label">Trusted by teams at</p>
+    <div class="logos-track">
+      <div class="logo-item">Shopify</div>
+      <div class="logo-item">HubSpot</div>
+      <div class="logo-item">Notion</div>
+      <div class="logo-item">Buffer</div>
+      <div class="logo-item">Mailchimp</div>
+      <div class="logo-item">Canva</div>
+      <div class="logo-item">Stripe</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STATS ========== -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="stat1">50K+</div>
+        <div class="stat-label">Active Writers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat2">12M+</div>
+        <div class="stat-label">Words Generated Daily</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat3">4.9★</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat4">10x</div>
+        <div class="stat-label">Faster Than Manual Writing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEATURES ========== -->
+<section id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge" style="margin-bottom:16px">⚡ Features</span>
+      <h2 class="section-title">Everything you need to <span class="highlight">write at scale</span></h2>
+      <p class="section-subtitle">From first draft to final publish — WriteFlow handles every step of your content workflow.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3 class="feature-title">Long-Form Blog Posts</h3>
+        <p class="feature-desc">Generate full 2,000+ word SEO-optimized blog articles with proper headings, meta descriptions, and internal linking suggestions in under 60 seconds.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📧</div>
+        <h3 class="feature-title">High-Converting Emails</h3>
+        <p class="feature-desc">Cold outreach, newsletters, follow-ups, and drip sequences. Our AI is trained on millions of emails with 40%+ open rates.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3 class="feature-title">Social Media Content</h3>
+        <p class="feature-desc">LinkedIn posts, Twitter threads, Instagram captions, and TikTok scripts — all optimized for each platform's unique algorithm and audience.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛒</div>
+        <h3 class="feature-title">E-commerce Copy</h3>
+        <p class="feature-desc">Product descriptions, Amazon listings, category pages, and checkout emails that turn browsers into buyers with proven persuasion frameworks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3 class="feature-title">Ad Copy & CTAs</h3>
+        <p class="feature-desc">Facebook Ads, Google Ads, landing page headlines, and A/B test variants. Generate 20 ad variations in the time it takes to write one.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3 class="feature-title">SEO Optimization</h3>
+        <p class="feature-desc">Built-in keyword density analysis, readability scoring, and schema markup suggestions. Every piece of content is built to rank from day one.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3 class="feature-title">25+ Languages</h3>
+        <p class="feature-desc">Write in English, Spanish, French, German, Japanese, and 20+ more. Reach global audiences without hiring a translation team.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3 class="feature-title">1-Click Integrations</h3>
+        <p class="feature-desc">Push content directly to WordPress, Webflow, HubSpot, Notion, and 50+ other tools via native integrations and Zapier.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3 class="feature-title">Plagiarism-Free</h3>
+        <p class="feature-desc">Every output is 100% unique and passes Copyscape. Our built-in plagiarism scanner verifies uniqueness before you publish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge" style="margin-bottom:16px">🚀 Process</span>
+      <h2 class="section-title">From idea to <span class="highlight">published content</span> in 3 steps</h2>
+      <p class="section-subtitle">No learning curve. No complicated settings. Just type, generate, and publish.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Describe Your Content</h3>
+        <p class="step-desc">Type a brief description, keywords, or paste an outline. The more context you give, the better the output. Takes 10 seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Choose Your Format</h3>
+        <p class="step-desc">Pick from 50+ content templates: blog post, email, ad copy, social post, press release, and more. Select tone, length, and language.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Generate & Publish</h3>
+        <p class="step-desc">Hit generate and get publish-ready content in seconds. Edit inline, run the plagiarism check, and push directly to your CMS.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3 class="step-title">Scale Your Output</h3>
+        <p class="step-desc">Use Bulk Generate to create 100 product descriptions or 30 social posts at once. What took a week now takes an afternoon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge" style="margin-bottom:16px">💬 Reviews</span>
+      <h2 class="section-title">Loved by <span class="highlight">50,000+ creators</span></h2>
+      <p class="section-subtitle">Don't take our word for it — here's what real users are saying about WriteFlow AI.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"WriteFlow cut my content creation time from 8 hours per week down to under 45 minutes. I've tripled my blog output and my organic traffic is up 180% in 3 months."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#6C47FF,#FF6B35)">SM</div>
+          <div>
+            <div class="testimonial-name">Sarah Mitchell</div>
+            <div class="testimonial-role">Content Strategist @ TechStartup</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I was skeptical about AI writing but the output quality genuinely surprised me. The email copy it generates converts better than what I was writing manually. Worth every penny."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#00D4AA,#6C47FF)">RK</div>
+          <div>
+            <div class="testimonial-name">Raj Kumar</div>
+            <div class="testimonial-role">E-commerce Founder</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"As an agency we use WriteFlow for all 12 of our clients. The team plan pays for itself in the first 2 hours of the month. Game-changing for our content workflow."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#FF6B35,#FFB800)">JD</div>
+          <div>
+            <div class="testimonial-name">Jessica Donovan</div>
+            <div class="testimonial-role">Founder, Spark Digital Agency</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The LinkedIn post generator alone is worth the subscription. I went from 500 followers to 12,000 in 6 months just by posting consistently with WriteFlow-generated content."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#6C47FF,#00D4AA)">MP</div>
+          <div>
+            <div class="testimonial-name">Marcus Peters</div>
+            <div class="testimonial-role">B2B Sales Coach</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Switched from Jasper and the difference is night and day. WriteFlow's output requires much less editing and the SEO optimization features are incredibly powerful."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#FFB800,#FF6B35)">AL</div>
+          <div>
+            <div class="testimonial-name">Amanda Liu</div>
+            <div class="testimonial-role">SEO Consultant</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I run a Shopify store and WriteFlow writes all my product descriptions. My conversion rate went up 23% after switching to AI-generated copy. The ROI is insane."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#6C47FF,#FFB800)">TW</div>
+          <div>
+            <div class="testimonial-name">Tyler Wang</div>
+            <div class="testimonial-role">DTC Brand Owner</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PRICING ========== -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge" style="margin-bottom:16px">💰 Pricing</span>
+      <h2 class="section-title">Simple, <span class="highlight">transparent pricing</span></h2>
+      <p class="section-subtitle">Start free. Upgrade when you need more. Cancel anytime — no contracts, no hidden fees.</p>
+    </div>
+    <div class="pricing-toggle">
+      <span class="toggle-label active" id="monthly-label">Monthly</span>
+      <div class="toggle-switch" id="billing-toggle" onclick="toggleBilling()"></div>
+      <span class="toggle-label" id="yearly-label">Yearly</span>
+      <span class="save-badge">Save 40%</span>
+    </div>
+    <div class="pricing-grid">
+      <!-- FREE -->
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" id="price-starter">0</span>
+          <span class="period">/mo</span>
+        </div>
+        <p class="plan-desc">Perfect for individuals getting started with AI writing. No credit card required.</p>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 10,000 words/month</li>
+          <li><span class="check">✓</span> 20+ content templates</li>
+          <li><span class="check">✓</span> Blog post generator</li>
+          <li><span class="check">✓</span> Email templates</li>
+          <li class="disabled"><span class="cross">✗</span> SEO optimization</li>
+          <li class="disabled"><span class="cross">✗</span> Bulk generation</li>
+          <li class="disabled"><span class="cross">✗</span> API access</li>
+          <li class="disabled"><span class="cross">✗</span> Team collaboration</li>
+        </ul>
+        <a href="#" class="btn-plan outline" onclick="openModal('starter')">Start for Free →</a>
+      </div>
+      <!-- PRO -->
+      <div class="pricing-card popular">
+        <div class="popular-badge">🔥 Most Popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" id="price-pro">49</span>
+          <span class="period">/mo</span>
+        </div>
+        <p class="plan-desc">For serious content creators, marketers, and solopreneurs who need unlimited output.</p>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> <strong>Unlimited</strong> words/month</li>
+          <li><span class="check">✓</span> 50+ content templates</li>
+          <li><span class="check">✓</span> GPT-4o + Claude 3.5</li>
+          <li><span class="check">✓</span> SEO optimization suite</li>
+          <li><span class="check">✓</span> Plagiarism checker</li>
+          <li><span class="check">✓</span> Bulk generation (up to 50)</li>
+          <li><span class="check">✓</span> WordPress integration</li>
+          <li><span class="check">✓</span> Priority support</li>
+        </ul>
+        <a href="#" class="btn-plan filled" onclick="openModal('pro')">Start 7-Day Free Trial →</a>
+      </div>
+      <!-- TEAM -->
+      <div class="pricing-card">
+        <div class="plan-name">Team</div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" id="price-team">149</span>
+          <span class="period">/mo</span>
+        </div>
+        <p class="plan-desc">For agencies and teams that need collaboration, custom branding, and white-label output.</p>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Everything in Pro</li>
+          <li><span class="check">✓</span> Up to 10 team members</li>
+          <li><span class="check">✓</span> Bulk generation (unlimited)</li>
+          <li><span class="check">✓</span> White-label export</li>
+          <li><span class="check">✓</span> Custom brand voice</li>
+          <li><span class="check">✓</span> API access (100K calls/mo)</li>
+          <li><span class="check">✓</span> Analytics dashboard</li>
+          <li><span class="check">✓</span> Dedicated account manager</li>
+        </ul>
+        <a href="#" class="btn-plan outline" onclick="openModal('team')">Start 7-Day Free Trial →</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:28px;font-size:0.85rem;color:var(--text-muted)">
+      🔒 Secured by Stripe &nbsp;|&nbsp; ✅ 30-day money-back guarantee &nbsp;|&nbsp; 🚫 Cancel anytime
+    </p>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge" style="margin-bottom:16px">❓ FAQ</span>
+      <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is there really a free plan with no credit card required?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes! Our Starter plan is completely free and requires no credit card. You get 10,000 words per month and access to 20+ templates. Upgrade only when you need more.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How is WriteFlow different from ChatGPT?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>While WriteFlow uses the same underlying AI models, we've built 50+ specialized content templates, SEO optimization, plagiarism checking, team collaboration, and direct CMS integrations on top. It's purpose-built for content creation and marketing — not a general-purpose chatbot.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Will the AI content pass plagiarism checks?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes. Every piece of content generated by WriteFlow is 100% unique and original. We include a built-in Copyscape-powered plagiarism scanner to verify uniqueness before you publish.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Can I cancel my subscription at any time?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Absolutely. Cancel with one click from your account dashboard. No questions asked, no cancellation fees. You'll retain access until the end of your billing period.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Do you offer a money-back guarantee?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes — every paid plan comes with a 30-day money-back guarantee, no questions asked. If you're not 100% satisfied, email us and we'll issue a full refund within 24 hours.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is my data private and secure?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>We take privacy seriously. Your content is never used to train AI models, never shared with third parties, and is encrypted at rest and in transit. We're SOC 2 Type II compliant and GDPR ready.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA SECTION ========== -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-box">
+      <h2 class="cta-title">Start writing <span class="highlight">10x faster</span> today</h2>
+      <p class="cta-subtitle">Join 50,000+ creators who've already transformed their content workflow. Free forever — no credit card needed.</p>
+      <div class="email-capture">
+        <input type="email" class="email-input" placeholder="Enter your work email..." id="emailCapture" />
+        <button class="btn-cta" onclick="captureEmail()">Get Started Free →</button>
+      </div>
+      <p class="cta-guarantee">🔒 No spam, ever. <span>Cancel anytime.</span> Free plan includes 10,000 words/month.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">WriteFlow AI</a>
+        <p class="footer-desc">The AI writing platform trusted by 50,000+ marketers, founders, and content creators to write better content, faster.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#">Templates</a></li>
+          <li><a href="#">API Docs</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press Kit</a></li>
+          <li><a href="#">Affiliates</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Support</div>
+        <ul class="footer-links">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Status</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 WriteFlow AI. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Cookies</a>
+        <a href="#">GDPR</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== CHECKOUT MODAL ========== -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal-box" style="position:relative">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">🚀 Start Your Free Trial</div>
+    <p class="modal-subtitle" id="modal-plan-text">Pro Plan — 7 days free, then $49/month. Cancel anytime.</p>
+    <form class="modal-form" onsubmit="handleCheckout(event)">
+      <input type="text" class="modal-input" placeholder="Full Name" required />
+      <input type="email" class="modal-input" placeholder="Email Address" required />
+      <div style="background:var(--dark-3);border:1px solid var(--border);border-radius:10px;padding:13px 16px;font-size:0.88rem;color:var(--text-muted)">
+        💳 &nbsp;Card ending in •••• — Powered by Stripe
+      </div>
+      <button type="submit" class="modal-submit" id="checkout-btn">
+        ✨ Start Free Trial — No Charge Today
+      </button>
+    </form>
+    <p class="modal-security">🔒 <span>256-bit SSL encryption</span> · Secured by Stripe · Cancel anytime</p>
+  </div>
+</div>
+
+<!-- ========== JS ========== -->
+<script src="js/app.js"></script>
+</body>
+</html>
