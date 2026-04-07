@@ -1,0 +1,16 @@
+{
+  "id": "ai-writer",
+  "name": "AI Writer",
+  "tagline": "AI-powered productivity solution",
+  "description": "AI-powered ai-writer application built for Aurora Market. Modern, responsive design with SaaS monetization.",
+  "category": "productivity",
+  "tags": ["ai", "productivity"],
+  "url": "https://auroramarket.org/ai-writer",
+  "demo": "https://21leahcimhtiek-oss.github.io/ai-writer",
+  "repo": "https://github.com/21leahcimhtiek-oss/ai-writer",
+  "stack": ["HTML", "CSS", "JavaScript"],
+  "status": "mvp",
+  "version": "1.0.0",
+  "author": "Aurora Rayes LLC",
+  "license": "MIT"
+}
